@@ -1,0 +1,94 @@
+/* Global Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.app-header {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: white;
+  padding: 1.25rem 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-header h1 {
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+/* Main Content */
+.app-main {
+  flex: 1;
+  padding: 2rem 0;
+}
+
+/* Share Cards */
+.share-card {
+  min-width: 120px;
+  background-color: white;
+  transition: all 0.2s ease;
+  border: 1px solid #e9ecef !important;
+}
+
+.share-card:hover {
+  background-color: #f8f9fa;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 0.75rem 0;
+  }
+  
+  .app-header h1 {
+    font-size: 1.25rem;
+  }
+  
+  .app-main {
+    padding: 1rem 0;
+  }
+  
+  .share-card {
+    min-width: 80px;
+    padding: 0.75rem !important;
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
