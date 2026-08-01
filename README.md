@@ -1,301 +1,262 @@
-\# 🛒 Order Management System
+Order Management System
 
+A full-stack Order Management System built using ASP.NET Core Web API, Clean Architecture, CQRS, MediatR, Dapper, SQL Server, Redis, FluentValidation, AutoMapper, and React.js.
 
+Technology Stack
 
-\## AI Software Engineer Tech Test Submission
+Layer
 
+Technology
 
+Backend
 
-A complete order management system built with \*\*.NET Core 8\*\* (CQRS + Dapper) and \*\*React TypeScript\*\* for the technical test. This solution demonstrates effective AI tool usage, clean architecture, and production-ready code.
+ASP.NET Core Web API (.NET 9)
 
+Architecture
 
+Clean Architecture
 
-\---
+Design Pattern
 
+CQRS
 
+Mediator
 
-\## 📋 Table of Contents
+MediatR
 
+Data Access
 
+Dapper
 
-\- \[Overview](#overview)
+Database
 
-\- \[Features](#features)
+SQL Server
 
-\- \[Technology Stack](#technology-stack)
+Validation
 
-\- \[Architecture](#architecture)
+FluentValidation
 
-\- \[Quick Start](#quick-start)
+Object Mapping
 
-\- \[Setup Instructions](#setup-instructions)
+AutoMapper
 
-\- \[API Endpoints](#api-endpoints)
+Caching
 
-\- \[Testing](#testing)
+Redis
 
-\- \[AI Usage](#ai-usage)
+API Documentation
 
-\- \[Project Structure](#project-structure)
+Swagger / OpenAPI
 
-\- \[Deployment](#deployment)
+Frontend
 
-\- \[Contributing](#contributing)
+React.js
 
-\- \[License](#license)
+Package Manager
 
+npm
 
+Prerequisites
 
-\---
+Install the following software:
 
+.NET 9 SDK
 
+Node.js 20 LTS or later
 
-\## 📌 Overview
+npm 10 or later
 
+SQL Server 2022, SQL Server Express, or LocalDB
 
+SQL Server Management Studio (SSMS)
 
-This order management system fulfills all requirements from the technical test:
+Redis (optional if caching is disabled)
 
+Visual Studio 2022 or later
 
+Verify the installations:
 
-\*\*Part One:\*\* Core order management with products, taxes, discounts, and order totals  
+dotnet --version
+node --version
+npm --version
 
-\*\*Part Two:\*\* Fair 3-way order splitting with rounding remainder allocation
+Clone the Repository
 
-
-
-\### Time Investment
-
-\- \*\*Total Time:\*\* \~3 hours
-
-\- \*\*AI Tools Used:\*\* ChatGPT 4, GitHub Copilot, Cursor
-
-\- \*\*Human Oversight:\*\* Business logic, edge cases, architecture decisions
-
-
-
-\---
-
-
-
-\## ✨ Features
-
-
-
-\### ✅ Part One - Core Requirements
-
-
-
-| Feature | Description |
-
-|---------|-------------|
-
-| \*\*Product Catalogue\*\* | Browse products with taxable/zero-rated items |
-
-| \*\*Order Management\*\* | Create and manage orders with multiple line items |
-
-| \*\*Tax Calculation\*\* | 20% standard rate with proportional discount handling |
-
-| \*\*Discount Application\*\* | Percentage or fixed amount discounts |
-
-| \*\*Order Summary\*\* | Complete breakdown: subtotal, discount, tax, total |
-
-
-
-\### ✅ Part Two - Split Extension
-
-
-
-| Feature | Description |
-
-|---------|-------------|
-
-| \*\*3-Way Split\*\* | Split order total into equal shares |
-
-| \*\*Fair Rounding\*\* | Remainder distributed fairly (first shares get extra cent) |
-
-| \*\*Visual Display\*\* | Clear UI showing each share amount |
-
-
-
-\---
-
-
-
-\## 🛠 Technology Stack
-
-
-
-\### Backend
-
-
-
-| Technology | Version | Purpose |
-
-|------------|---------|---------|
-
-| .NET Core | 8 | Framework |
-
-| C# | 12 | Language |
-
-| MediatR | 12.2.0 | CQRS implementation |
-
-| Dapper | 2.1.24 | Micro-ORM |
-
-| SQL Server | 2022 | Database |
-
-| Redis | Latest | Caching |
-
-| AutoMapper | 12.0.1 | Object mapping |
-
-| FluentValidation | 11.8.0 | Validation |
-
-| Swagger/OpenAPI | 6.5.0 | API documentation |
-
-
-
-\### Frontend
-
-
-
-| Technology | Version | Purpose |
-
-|------------|---------|---------|
-
-| React | 18.2.0 | UI Framework |
-
-| TypeScript | 4.9.5 | Type safety |
-
-| React Bootstrap | 2.9.1 | UI Components |
-
-| Axios | 1.6.2 | HTTP Client |
-
-| React Router | 6.20.0 | Navigation |
-
-
-
-\---
-
-
-
-\## 🏗 Architecture
-
-┌─────────────────────────────────────────────────────────────┐
-
-│ React Frontend │
-
-│ (TypeScript + Bootstrap) │
-
-└─────────────────┬───────────────────────────────────────────┘
-
-│ HTTP/REST
-
-┌─────────────────▼───────────────────────────────────────────┐
-
-│ API Controllers │
-
-│ (REST Endpoints) │
-
-└─────────────────┬───────────────────────────────────────────┘
-
-│
-
-┌─────────────────▼───────────────────────────────────────────┐
-
-│ MediatR Pipeline │
-
-│ (Logging, Validation, Performance) │
-
-└────────┬──────────────────────────────────────┬────────────┘
-
-│ │
-
-┌────────▼─────────┐ ┌───────────▼──────────┐
-
-│ Write Side │ │ Read Side │
-
-│ (Commands) │ │ (Queries) │
-
-│ │ │ │
-
-│ • CreateOrder │ │ • GetOrderById │
-
-│ • AddItem │ │ • GetOrderSummary │
-
-│ • ApplyDiscount │ │ • GetProductCatalogue │
-
-│ • RemoveItem │ │ • GetAllOrders │
-
-└────────┬─────────┘ └───────────┬──────────┘
-
-│ │
-
-┌────────▼─────────┐ ┌───────────▼──────────┐
-
-│ Write DB │ │ Read DB + Cache │
-
-│ (SQL Server) │ │ (Redis) │
-
-└──────────────────┘ └───────────────────────┘
-
-
-
-
-
-
-\### CQRS Pattern Benefits
-
-
-
-\- \*\*Separation of Concerns\*\*: Commands (write) vs Queries (read)
-
-\- \*\*Performance\*\*: Optimized read models with caching
-
-\- \*\*Scalability\*\*: Independent scaling of read/write
-
-\- \*\*Maintainability\*\*: Clear separation of business logic
-
-
-
-\---
-
-
-
-\## 🚀 Quick Start
-
-
-
-\### Prerequisites
-
-
-
-```bash
-
-\# Check versions
-
-dotnet --version    # Should show 8.x
-
-node --version      # Should show 18.x
-
-npm --version       # Should show 9.x+
-
-sqlcmd -?           # SQL Server installed
-
-redis-server -v     # Redis installed
-
-Clone and Setup
-
-
-
-\# Clone repository
-
-git clone <repository-url>
+git clone https://github.com/SiddhanathNikam29/OrderManagement.git
 
 cd OrderManagement
 
+Database Setup
 
+Option A: Run the SQL Script Using SSMS
 
-\# Backend setup
+Open SQL Server Management Studio (SSMS).
+
+Connect to your local SQL Server instance.
+
+Open the following file:
+
+Sql Script in repository
+
+Execute the complete SQL script.
+
+Verify that the database, tables, stored procedures, and required data were created successfully.
+
+Use the database name defined in Database/Schema.sql when configuring the connection string.
+
+Option B: Run the SQL Script Using SQLCMD
+
+For Local SQL Server:
+
+sqlcmd -S localhost -E -i Database/Schema.sql
+
+For SQL Server Express:
+
+sqlcmd -S .\SQLEXPRESS -E -i Database/Schema.sql
+
+Configure the Backend
+
+Open:
+
+OrderManagement.API/appsettings.json
+
+Update the SQL Server connection string according to your local SQL Server instance.
+
+Example using SQL Server LocalDB:
+
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=OrderManagement;Trusted_Connection=True;TrustServerCertificate=True"
+  }
+}
+
+Example using SQL Server Express:
+
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=.\\SQLEXPRESS;Database=OrderManagement;Integrated Security=True;TrustServerCertificate=True"
+  }
+}
+
+Example using SQL Server with Windows Authentication:
+
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=OrderManagementDB;Integrated Security=True;TrustServerCertificate=True"
+  }
+}
+
+Ensure that the connection-string key matches the key used by DapperContext.
+
+Redis Configuration
+
+Configure Redis in:
+
+OrderManagement.API/appsettings.json
+
+Example:
+
+{
+  "ConnectionStrings": {
+    "RedisConnection": "localhost:6379"
+  }
+}
+
+If Redis is installed locally, start the Redis service before running the API.
+
+You can also run Redis using Docker:
+
+docker run --name order-management-redis -p 6379:6379 -d redis:latest
+
+Verify the Redis container:
+
+docker ps
+
+Backend Setup
+
+From the repository root:
+
+dotnet restore
+
+dotnet build
+
+Run the API:
+
+cd OrderManagement.API
+
+dotnet run
+
+The API URLs are configured in:
+
+OrderManagement.API/Properties/launchSettings.json
+
+Frontend Setup
+
+Open a new terminal and navigate to the React application:
+
+cd OrderManagement/order-management-ui
+
+Install dependencies:
+
+npm install
+
+Start the frontend:
+
+npm start
+
+The React application will normally start at:
+
+http://localhost:3000
+
+Frontend API Configuration
+
+Create or update:
+
+order-management-ui/.env
+
+Add:
+
+REACT_APP_API_URL=https://localhost:44308
+
+Restart the React development server after changing the .env file:
+
+npm start
+
+Default URLs
+
+Service
+
+URL
+
+React Frontend
+
+http://localhost:3000
+
+Backend API
+
+https://localhost:44308
+
+Swagger UI
+
+https://localhost:44308/swagger
+
+Health Check
+
+https://localhost:44308/health
+
+Simple Health Check
+
+https://localhost:44308/health/simple
+
+The backend port may differ on your machine. Check OrderManagement.API/Properties/launchSettings.json for the actual URL.
+
+Run the Complete Application
+
+Use two terminals.
+
+Terminal 1 — Backend
+
+cd OrderManagement
 
 dotnet restore
 
@@ -305,530 +266,216 @@ cd OrderManagement.API
 
 dotnet run
 
+Terminal 2 — Frontend
 
-
-\# Frontend setup (new terminal)
-
-cd order-management-ui
+cd OrderManagement/order-management-ui
 
 npm install
 
 npm start
 
+Open the application:
 
+http://localhost:3000
 
+Verify the Application
 
+Verify Swagger
 
-Default URLs
+Open:
 
-Service	URL
+https://localhost:44308/swagger
 
-Backend API	https://localhost:44308
+Swagger should display the available API endpoints.
 
-Swagger UI	https://localhost:44308/swagger
+Verify Health Check
 
-Frontend	http://localhost:3000
+Open:
 
+https://localhost:44308/health/simple
 
-
-📦 Setup Instructions
-
-1\. Database Setup
-
-Option A: Run SQL Script
-
-Execute the complete SQL script from Database/Schema.sql:
-
--- Create database
-
-CREATE DATABASE OrderManagement\_CQRS;
-
-GO
-
-
-
-USE OrderManagement\_CQRS;
-
-GO
-
-
-
-\-- Run all scripts in order:
-
-\-- 1. Tables
-
-\-- 2. Indexes
-
-\-- 3. Views
-
-\-- 4. Stored Procedures
-
-\-- 5. Seed Data
-
-
-2\. Backend Configuration
-
-appsettings.json
-
-json
+Expected response:
 
 {
-
-&#x20; "Logging": {
-
-&#x20;   "LogLevel": {
-
-&#x20;     "Default": "Information",
-
-&#x20;     "Microsoft.AspNetCore": "Warning"
-
-&#x20;   }
-
-&#x20; },
-
-&#x20; "ConnectionStrings": {
-
-&#x20;   "DefaultConnection": "Server=localhost;Database=OrderManagement\_CQRS;Trusted\_Connection=True;TrustServerCertificate=True;",
-
-&#x20;   "RedisConnection": "localhost:6379"
-
-&#x20; },
-
-&#x20; "AllowedHosts": "\*"
-
+  "status": "Healthy",
+  "timestamp": "2026-08-01T10:00:00Z",
+  "environment": "Development"
 }
 
-Run Backend
+Verify the Frontend
 
-bash
+Open:
 
-cd OrderManagement.API
+http://localhost:3000
+
+The Order Management application should load and connect to the backend API.
+
+CORS Configuration
+
+The backend is configured to allow the React application running at:
+
+http://localhost:3000
+
+The CORS policy is configured in:
+
+OrderManagement.API/Program.cs
+
+Example:
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://localhost:3000",
+                "https://localhost:3000"
+            )
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
+    });
+});
+
+Project Structure
+
+OrderManagement/
+│
+├── OrderManagement.API/
+│   ├── Controllers/
+│   ├── Mappings/
+│   ├── Properties/
+│   ├── appsettings.json
+│   └── Program.cs
+│
+├── OrderManagement.Application/
+│   ├── Behaviors/
+│   ├── Commands/
+│   ├── Common/
+│   ├── DTOs/
+│   ├── Queries/
+│   ├── Services/
+│   └── Validators/
+│
+├── OrderManagement.Domain/
+│   ├── Entities/
+│   └── Interfaces/
+│
+├── OrderManagement.Infrastructure/
+│   ├── Data/
+│   ├── Repositories/
+│   │   ├── Read/
+│   │   └── Write/
+│   └── Services/
+│
+├── Database/
+│   └── Schema.sql
+│
+├── order-management-ui/
+│   ├── public/
+│   ├── src/
+│   ├── package.json
+│   └── .env
+│
+├── OrderManagement.sln
+└── README.md
+
+Common Issues
+
+SQL Server Connection Error
+
+Check the following:
+
+SQL Server service is running.
+
+The database has been created successfully.
+
+The database name is correct.
+
+The SQL Server instance name is correct.
+
+The connection string is correct.
+
+Windows Authentication or SQL Authentication is configured correctly.
+
+Backend Port Is Different
+
+Check:
+
+OrderManagement.API/Properties/launchSettings.json
+
+Use the URL shown in the applicationUrl property.
+
+Update the frontend .env file if the API port is different:
+
+REACT_APP_API_URL=https://localhost:<API_PORT>
+
+HTTPS Certificate Error
+
+Run:
+
+dotnet dev-certs https --clean
+
+dotnet dev-certs https --trust
+
+Then restart the API:
 
 dotnet run
 
+Port Already in Use
 
+Check which process is using port 44308:
 
-\# Or with hot reload
+netstat -ano | findstr :44308
 
-dotnet watch run
+Stop the process:
 
-3\. Frontend Configuration
+taskkill /PID <PROCESS_ID> /F
 
-.env
+Then start the API again:
 
-env
+dotnet run
 
-REACT\_APP\_API\_URL=https://localhost:5001/api
+React npm install Error
 
-Run Frontend
+Delete node_modules and reinstall.
 
-bash
+Windows PowerShell:
 
-cd order-management-ui
+Remove-Item node_modules -Recurse -Force
+
+Remove-Item package-lock.json -Force
 
 npm install
 
 npm start
 
-📡 API Endpoints
+CORS Error
 
-Orders
+Verify that:
 
-Method	Endpoint	Description
+The backend is running.
 
-POST	/api/orders	Create new order
+The frontend URL is included in the CORS policy.
 
-GET	/api/orders/{id}	Get order details
+The API URL in .env is correct.
 
-GET	/api/orders/{id}/summary	Get order summary
+Both backend and frontend were restarted after configuration changes.
 
-GET	/api/orders	Get all orders (paged)
+Development Notes
 
-POST	/api/orders/{id}/items	Add item to order
+Run Database/Schema.sql before starting the application.
 
-DELETE	/api/orders/{id}/items/{itemId}	Remove item
+Start SQL Server before starting the backend.
 
-PATCH	/api/orders/{id}/discount	Apply discount
+Start the backend before starting the React frontend.
 
-POST	/api/orders/{id}/split	Split order
+Keep the backend running while testing the frontend.
 
-Products
+Use Swagger to test API endpoints independently.
 
-Method	Endpoint	Description
+Use /health or /health/simple to verify API availability.
 
-GET	/api/products	Get product catalogue
+Do not commit connection strings containing production credentials.
 
-Health
-
-Method	Endpoint	Description
-
-GET	/health	Detailed health check
-
-GET	/health/simple	Simple health status
-
-Example: Create Order
-
-bash
-
-curl -X POST https://localhost:5001/api/orders \\
-
-&#x20; -H "Content-Type: application/json" \\
-
-&#x20; -d '{"customerName":"John Doe","customerEmail":"john@example.com"}'
-
-Example: Add Item
-
-bash
-
-curl -X POST https://localhost:5001/api/orders/1/items \\
-
-&#x20; -H "Content-Type: application/json" \\
-
-&#x20; -d '{"orderId":1,"productId":1,"quantity":2}'
-
-Example: Split Order
-
-bash
-
-curl -X POST https://localhost:5001/api/orders/1/split \\
-
-&#x20; -H "Content-Type: application/json" \\
-
-&#x20; -d '{"orderId":1,"numberOfShares":3}'
-
-🧪 Testing
-
-Test Scenarios
-
-1\. Basic Order Flow
-
-Step	Action	Expected
-
-1	Create order	Order with ID and number
-
-2	Add 2 Laptops ($1299.99 each)	Subtotal: $2599.98
-
-3	Add 3 Sandwiches ($6.99 each)	Subtotal: $2620.95
-
-4	Apply 10% discount	Discount: $262.10
-
-5	Check totals	Tax: $471.77, Total: $2830.62
-
-2\. Split Test
-
-Input	Expected Output
-
-Total: $10.00, Shares: 3	$3.34, $3.33, $3.33
-
-Total: $0.02, Shares: 3	$0.01, $0.01, $0.00
-
-Total: $100.00, Shares: 4	$25.00, $25.00, $25.00, $25.00
-
-Backend Tests
-
-bash
-
-cd OrderManagement.Tests
-
-dotnet test
-
-Frontend Tests
-
-bash
-
-cd order-management-ui
-
-npm test
-
-🤖 AI Usage
-
-Tools Used
-
-Tool	Purpose	Effectiveness
-
-ChatGPT 4	Architecture, code generation, debugging	⭐⭐⭐⭐⭐
-
-GitHub Copilot	Boilerplate, completion, tests	⭐⭐⭐⭐
-
-Cursor	Refactoring, error fixing	⭐⭐⭐⭐⭐
-
-AI Effectiveness Metrics
-
-Metric	Value
-
-Code Generated by AI	\~70%
-
-Code Modified/Corrected	\~30%
-
-AI Suggestions Accepted	85%
-
-AI Suggestions Rejected	15%
-
-Time Saved	\~60%
-
-Bugs Found by AI	12
-
-Bugs Missed by AI	3
-
-Key Corrections Made
-
-Issue	AI Suggestion	Human Fix
-
-IsTaxable in OrderItems	Added column	Removed - comes from Products
-
-Connection management	OpenAsync()	Used synchronous Open()
-
-AutoMapper overload	typeof(Program).Assembly	Inline configuration
-
-Swagger middleware	Wrong order	Fixed middleware order
-
-Split edge case	Missed < 1 cent	Added validation
-
-Example AI Interaction
-
-text
-
-\[User] "Implement fair rounding for splitting an amount 3 ways"
-
-
-
-\[AI] Provided base algorithm
-
-
-
-\[User] "What if base amount is $0.00 and total is $0.02 split 3 ways?"
-
-
-
-\[AI] Added edge case handling → Final solution now handles all cases
-
-📁 Project Structure
-
-text
-
-OrderManagement/
-
-├── OrderManagement.Domain/
-
-│   ├── Entities/
-
-│   │   ├── Order.cs
-
-│   │   ├── OrderItem.cs
-
-│   │   └── Product.cs
-
-│   ├── Common/
-
-│   │   └── BaseEntity.cs
-
-│   └── Interfaces/
-
-│       ├── IWriteRepository.cs
-
-│       └── IReadRepository.cs
-
-│
-
-├── OrderManagement.Application/
-
-│   ├── Commands/
-
-│   │   ├── Orders/
-
-│   │   │   ├── CreateOrder/
-
-│   │   │   ├── AddItem/
-
-│   │   │   ├── ApplyDiscount/
-
-│   │   │   └── RemoveItem/
-
-│   │   └── Products/
-
-│   ├── Queries/
-
-│   │   ├── Orders/
-
-│   │   │   ├── GetOrderById/
-
-│   │   │   ├── GetOrderSummary/
-
-│   │   │   ├── GetAllOrders/
-
-│   │   │   └── SplitOrder/
-
-│   │   └── Products/
-
-│   │       └── GetProductCatalogue/
-
-│   ├── DTOs/
-
-│   │   ├── OrderDto.cs
-
-│   │   ├── ProductDto.cs
-
-│   │   └── OrderSplitResultDto.cs
-
-│   ├── Behaviors/
-
-│   │   ├── LoggingBehavior.cs
-
-│   │   └── ValidationBehavior.cs
-
-│   └── Services/
-
-│       ├── IOrderCalculator.cs
-
-│       └── OrderCalculator.cs
-
-│
-
-├── OrderManagement.Infrastructure/
-
-│   ├── Data/
-
-│   │   ├── DapperContext.cs
-
-│   │   └── StoredProcedureNames.cs
-
-│   ├── Repositories/
-
-│   │   ├── Write/
-
-│   │   │   ├── OrderWriteRepository.cs
-
-│   │   │   └── ProductWriteRepository.cs
-
-│   │   └── Read/
-
-│   │       ├── OrderReadRepository.cs
-
-│   │       └── ProductReadRepository.cs
-
-│   └── Services/
-
-│       ├── RedisCacheService.cs
-
-│       └── ICacheService.cs
-
-│
-
-├── OrderManagement.API/
-
-│   ├── Controllers/
-
-│   │   ├── OrdersController.cs
-
-│   │   └── ProductsController.cs
-
-│   ├── Middleware/
-
-│   │   └── ExceptionHandlingMiddleware.cs
-
-│   ├── Program.cs
-
-│   ├── appsettings.json
-
-│   └── appsettings.Development.json
-
-│
-
-├── order-management-ui/
-
-│   ├── src/
-
-│   │   ├── api/
-
-│   │   │   ├── client.ts
-
-│   │   │   ├── orderApi.ts
-
-│   │   │   └── productApi.ts
-
-│   │   ├── components/
-
-│   │   │   ├── common/
-
-│   │   │   │   ├── LoadingSpinner.tsx
-
-│   │   │   │   └── ErrorMessage.tsx
-
-│   │   │   ├── catalogue/
-
-│   │   │   │   ├── ProductCatalogue.tsx
-
-│   │   │   │   └── ProductCard.tsx
-
-│   │   │   ├── order/
-
-│   │   │   │   ├── OrderBuilder.tsx
-
-│   │   │   │   ├── OrderSummary.tsx
-
-│   │   │   │   ├── OrderItemRow.tsx
-
-│   │   │   │   └── DiscountControl.tsx
-
-│   │   │   ├── split/
-
-│   │   │   │   ├── SplitOrder.tsx
-
-│   │   │   │   └── SplitResult.tsx
-
-│   │   │   └── modals/
-
-│   │   │       └── CreateOrderModal.tsx
-
-│   │   ├── hooks/
-
-│   │   │   ├── useOrder.ts
-
-│   │   │   └── useProducts.ts
-
-│   │   ├── types/
-
-│   │   │   └── index.ts
-
-│   │   ├── utils/
-
-│   │   │   └── formatters.ts
-
-│   │   ├── App.tsx
-
-│   │   ├── App.css
-
-│   │   └── index.tsx
-
-│   ├── package.json
-
-│   ├── tsconfig.json
-
-│   └── .env
-
-│
-
-├── Database/
-
-│   └── Schema.sql
-
-│
-
-├── Documentation/
-
-│   ├── AI\_USAGE\_LOG.md
-
-│   ├── SESSION\_LOGS.md
-
-│   └── API\_REFERENCE.md
-
-│
-
-├── README.md
-
-├── CONTRIBUTING.md
-
-└── LICENSE
-
-
-
+Use appsettings.Development.json or environment variables for local secrets.
