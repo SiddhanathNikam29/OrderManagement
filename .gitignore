@@ -1,0 +1,179 @@
+=========================
+CYCACARGO - .NET + React
+=========================
+Environment Variables
+.env
+.env.*
+!.env.example
+
+Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.rsuser
+
+Build Folders
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+publish/
+
+.NET Files
+*.dll
+*.exe
+*.pdb
+*.cache
+*.dbmdl
+*.jfm
+*.log
+
+Test Results
+TestResults/
+*.trx
+*.coverage
+coverage/
+
+NuGet
+packages/
+*.nupkg
+*.snupkg
+
+Rider
+.idea/
+.sln.iml
+
+VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+SQL Local DB
+*.mdf
+*.ldf
+
+Azure
+.publishsettings
+.azurePubxml
+
+Node Modules
+node_modules/
+
+React Build Outputs
+build/
+dist/
+out/
+
+Vite
+.vite/
+vite.svg
+
+Next.js
+.next/
+
+React Cache
+.cache/
+.parcel-cache/
+
+NPM/Yarn Logs
+npm-debug.log
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+ESLint
+.eslintcache
+
+Storybook
+storybook-static/
+
+Cypress
+cypress/videos/
+cypress/screenshots/
+
+Temporary Files
+tmp/
+temp/
+*.tmp
+
+OS Files
+.DSStore
+Thumbs.db
+Desktop.ini
+
+GitHub Actions Artifacts
+artifacts/
+
+Docker
+docker-compose.override.yml
+
+Logs
+logs/
+*.log
+
+Backup Files
+*.bak
+*.old
+*.orig
+
+Generated Reports
+BenchmarkDotNet.Artifacts/
+
+Local History
+.history/
+.localhistory/
+
+MacOS
+.AppleDouble
+.LSOverride
+Icon
+.*
+
+Windows
+$RECYCLE.BIN/
+
+Terraform
+.terraform/
+*.tfstate
+.tfstate.
+
+SonarQube
+.sonarqube/
+
+Angular (if added later)
+.angular/
+.angular-cache/
+
+Coverage
+coverage-final.json
+lcov.info
+
+Generated Files
+Generated Files/
+Generated_Code/
+
+Package Managers
+.pnp
+.pnp.js
+
+Webpack
+.webpack/
+
+Misc
+*.swp
+*.swo
+*~
+
+Keep these files
+!README.md
+!.gitignore
